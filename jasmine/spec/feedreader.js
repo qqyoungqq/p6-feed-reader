@@ -14,29 +14,50 @@ $(function() {
     * feeds definitions, the allFeeds variable in our application.
     */
     describe('RSS Feeds', function() {
-        /* This is our first test - it tests to make sure that the
+        /* A test to make sure that the
          * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
+         * empty. 
          */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
+        /**
+          * @desc test if each feed has URL/name defined and they are not empty
+          * @param int $input - the index of allFeeds
+          * @param int $category - property of allFeeds (0/other = URL/name)
+          * @return bool - success or failure 
+        */
+        function testAllFeeds(input,category) {
+            if (category == 0) {
+                it('#'+ input + ' feed contains url', function() {
+                    expect(allFeeds[input].url).toBeDefined();
+                    expect(allFeeds[input].url).toBeTruthy();
+                });
+            } else {
+                it('#' + input +' feed contains name', function() {
+                    expect(allFeeds[input].name).toBeDefined();
+                    expect(allFeeds[input].name).toBeTruthy();
+                });                
+            }
+         }
 
-        /* TODO: Write a test that loops through each feed
+        /* A test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        for(var i=0, len=allFeeds.length; i<len; i++) {
+            testAllFeeds(i,0);
+        }
 
-
-        /* TODO: Write a test that loops through each feed
+        /* A test that loops through each feed 
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        for(var i=0, len=allFeeds.length; i<len; i++) {
+            testAllFeeds(i,1);
+        }         
     });
 
 
