@@ -25,43 +25,43 @@ $(function() {
 
         /**
           * @desc test if each feed has URL/name defined and they are not empty
-          * @param int $input - the index of allFeeds
           * @param int $category - property of allFeeds (0/other = URL/name)
           * @return bool - success or failure 
         */
-        function testAllFeeds(input,category) {
+         function testAllFeeds(category) {
+            var len=allFeeds.length;
             if (category == 0) {
-                it('#'+ input + ' feed contains url', function() {
-                    expect(allFeeds[input].url).toBeDefined();
-                    expect(allFeeds[input].url).toBeTruthy();
+                it('contain url', function() {
+                    for(var i=0; i<len; i++) {
+                        expect(allFeeds[i].url).toBeDefined();
+                        expect(allFeeds[i].url).toBeTruthy();
+                    }
                 });
             } else {
-                it('#' + input +' feed contains name', function() {
-                    expect(allFeeds[input].name).toBeDefined();
-                    expect(allFeeds[input].name).toBeTruthy();
-                });                
+                it('contain name', function() {
+                    for(var i=0; i<len; i++) {
+                        expect(allFeeds[i].name).toBeDefined();
+                        expect(allFeeds[i].name).toBeTruthy();
+                    }
+                });
             }
          }
 
         /* A test that loops through each feed in the allFeeds object 
          * and ensures it has a URL defined and that the URL is not empty.
          */
-        for(var i=0, len=allFeeds.length; i<len; i++) {
-            testAllFeeds(i,0);
-        }
+         testAllFeeds(0);
 
         /* A test that loops through each feed in the allFeeds object 
          * and ensures it has a name defined and that the name is not empty.
-         */
-        for(var i=0, len=allFeeds.length; i<len; i++) {
-            testAllFeeds(i,1);
-        }         
+         */         
+         testAllFeeds(1);    
     });
 
     /* A test suite named "The menu" */ 
     describe('The menu', function(){
         /* A test that ensures the menu element is hidden by default */   
-        it('hide menu by default',function() {
+        it('is hidden by default',function() {
             expect($('body').attr('class')).toBe('menu-hidden');
         });
 
@@ -69,7 +69,7 @@ $(function() {
          * icon is clicked. This test has two expectations: does the
          * menu display when clicked and does it hide when clicked again
         */
-        it('menu changes visibility when the menu icon is clicked',function() {
+        it('changes visibility when the menu icon is clicked',function() {
             var menu_btn = $('.menu-icon-link');
             menu_btn.click();
             expect($('body').attr('class')).not.toBe('menu-hidden');
@@ -105,7 +105,7 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(1,done);
         });
-        
+
         // load the initial feed after the spec
         afterEach(function(done) {
             loadFeed(0,done);
