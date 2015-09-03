@@ -88,7 +88,7 @@ $(function() {
             loadFeed(0,done);
         });
 
-        it('.entry element within the .feed container', function() {
+        it('contain .entry element within the .feed container', function() {
             expect($('.feed .entry').length).toBeGreaterThan(0);
         });
 
@@ -114,6 +114,18 @@ $(function() {
         it('content changes when a new feed is loaded',function() {
             expect($('.feed .entry').html()).not.toBe(old_cont);
         });
+    });
+
+    /* A test suit named "FeedList" */
+    describe('FeedList', function() {
+         var listItem = $('.feed-list li');
+         var old_cont = $('feed .entry').html();
+        /* A test that ensures there is at least one li element 
+         * within .feed-list container
+         */ 
+         it('contains feed items',function() {
+            expect(listItem.length).toBeGreaterThan(0);
+         });
     });
 
 }());
