@@ -80,7 +80,6 @@ $(function() {
 
     /* A test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-
         /* A test that ensures when the loadFeed function is called and
          * completeds its work, there is at least a single .entry element
          * within the .feed container. 
@@ -95,10 +94,26 @@ $(function() {
 
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
-
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+    /* A test suite named "New Feed Selection" */
+    describe('New Feed Selection', function() {
+        /* A test that ensures when a new feed is loaded by the loadFeed 
+         * function that the content actually changes.
          */
+        var old_cont = $('feed .entry').html();
+
+        // load a new feed 
+        beforeEach(function(done) {
+            loadFeed(1,done);
+        });
+        
+        // load the initial feed after the spec
+        afterEach(function(done) {
+            loadFeed(0,done);
+        });
+
+        it('content changes when a new feed is loaded',function() {
+            expect($('.feed .entry').html()).not.toBe(old_cont);
+        });
+    });
+
 }());
