@@ -55,11 +55,11 @@ $(function() {
         /* A test that loops through each feed in the allFeeds object 
          * and ensures it has a name defined and that the name is not empty.
          */         
-         testAllFeeds(1);    
+         testAllFeeds(1);   
     });
 
     /* A test suite named "The menu" */ 
-    describe('The menu', function(){
+    describe('The Menu', function(){
         /* A test that ensures the menu element is hidden by default */   
         it('is hidden by default',function() {
             expect($('body').attr('class')).toBe('menu-hidden');
@@ -118,14 +118,38 @@ $(function() {
 
     /* A test suit named "FeedList" */
     describe('FeedList', function() {
-         var listItem = $('.feed-list li');
-         var old_cont = $('feed .entry').html();
+        var listItem = $('.feed-list li');
+        var old_cont = $('feed .entry').html();
         /* A test that ensures there is at least one li element 
          * within .feed-list container
          */ 
-         it('contains feed items',function() {
+        it('contains feed items',function() {
             expect(listItem.length).toBeGreaterThan(0);
-         });
+        });
+    });
+
+    /* A test suit named "Feedreader is able to" */
+    describe('Feedreader is able to', function() {
+        var feeds;
+        var newfeed;
+
+        beforeEach(function() {
+            feeds = new Feeds();
+            newfeed = new aFeed('test name','test url');
+        });
+
+        /* A test that ensures the feedreader is able to add more feeds */
+        it('add more feeds', function() {
+            feeds.addFeeds(newfeed);
+            expect(feeds.getFeeds(0)).toBe(newfeed);
+        }); 
+
+        /* A test that ensures the feedreader is able to remove feeds */
+        it('delete feeds', function() {
+            feeds.addFeeds(newfeed);
+            feeds.deleteFeeds(0);
+            expect(feeds.getFeeds(0)).not.toBeDefined();
+        });
     });
 
 }());

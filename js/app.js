@@ -6,6 +6,33 @@
  * jQuery.
  */
 
+/**
+ * @desc creat a new feed object 
+ * @param string $name
+ * @param string $url
+ * @return bool - success or failure
+*/
+function aFeed(name,url) {
+    this.name = name;
+    this.url = url;
+}
+
+/**
+ * @desc creat an object containing allFeeds and other methods 
+*/
+function Feeds() {
+    this.allFeeds = [];
+    this.addFeeds = function(afeed) {
+        this.allFeeds.push(afeed);
+    };
+    this.deleteFeeds = function(index) {
+        this.allFeeds.splice(index,1);
+    };
+    this.getFeeds = function(index) {
+        return this.allFeeds[index];
+    };
+}
+
 // The names and URLs to all of the feeds we'd like available.
 var allFeeds = [
     {
@@ -22,6 +49,9 @@ var allFeeds = [
         url: 'http://feeds.feedburner.com/udacity-linear-digressions'
     }
 ];
+
+var feeds = new Feeds();
+feeds.allFeeds = allFeeds;
 
 /* This function starts up our application. The Google Feed
  * Reader API is loaded asynchonously and will then call this
