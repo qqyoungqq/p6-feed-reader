@@ -6,9 +6,10 @@ This project is about "test-driven development": write tests first before starti
 
 ### Intructions on how to run the application
 1. Visit my [Github page] (http://qqyoungqq.github.io/p6-feed-reader/)
-2. Click the menu icon to see the avaliable feeds 
-3. Click the list of feedlist to load the feed
-4. Jasmine tests and results are shown in the bottom of the page
+2. Click the link of article to read the arcticle opened in a new window 
+3. Click the menu icon to see the avaliable feeds 
+4. Click the list of feedlist to load the feed
+5. Jasmine tests and results are shown at the bottom of the page
 
 ### List of tests  
 1. a test that loops through each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty
