@@ -30,7 +30,7 @@ $(function() {
         */
          function testAllFeeds(category) {
             var len=allFeeds.length;
-            if (category == 0) {
+            if (category === 0) {
                 it('contain url', function() {
                     for(var i=0; i<len; i++) {
                         expect(allFeeds[i].url).toBeDefined();
