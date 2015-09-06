@@ -81,6 +81,10 @@ h2 {
     transition: transform 0.2s;
 }
 
+.add-form-hidden {
+    display: none;   
+}
+
 .feed {
     margin: 4em 0 0;
 }

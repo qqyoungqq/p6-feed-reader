@@ -12,7 +12,7 @@
  * @param string $url
  * @return bool - success or failure
 */
-function aFeed(name,url) {
+function aFeed(name,url,id) {
     this.name = name;
     this.url = url;
 }
@@ -71,8 +71,8 @@ function init() {
  * which will be called after everything has run successfully.
  */
 function loadFeed(id, cb) {
-    var feedUrl = allFeeds[id].url,
-        feedName = allFeeds[id].name,
+    var feedUrl = feeds.allFeeds[id].url,
+        feedName = feeds.allFeeds[id].name,
         feed = new google.feeds.Feed(feedUrl);
 
     /* Load the feed using the Google Feed Reader API.
@@ -127,13 +127,18 @@ $(function() {
         feedId = 0,
         menuIcon = $('.menu-icon-link');
 
+        addButton = $('#add-button');
+        cancel = $('#cancel');
+        add = $('#add');
+
+
     /* Loop through all of our feeds, assigning an id property to
      * each of the feeds based upon its index within the array.
      * Then parse that feed against the feedItemTemplate (created
      * above using Handlebars) and append it to the list of all
      * available feeds within the menu.
      */
-    allFeeds.forEach(function(feed) {
+    feeds.allFeeds.forEach(function(feed) {
         feed.id = feedId;
         feedList.append(feedItemTemplate(feed));
 
@@ -158,4 +163,24 @@ $(function() {
     menuIcon.on('click', function() {
         $('body').toggleClass('menu-hidden');
     });
+
+    addButton.on('click',function() {
+        $('form').toggleClass('add-form-hidden');
+    });
+
+    cancel.on('click',function() {
+        $('form').toggleClass('add-form-hidden');
+    });
+
+    add.on('click', function() {
+        $('form').toggleClass('add-form-hidden');
+        var name = $('#feed-name').val();
+        var url = $('#feed-url').val();
+        var addfeed = new aFeed(name,url);
+        addfeed.id=feedId;
+        feedId++;
+        feeds.addFeeds(addfeed);
+        feedList.append(feedItemTemplate(addfeed));
+    });
+
 }());
