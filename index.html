@@ -30,7 +30,7 @@
             <ul class="feed-list"></ul>
             <div class="add">
                 <button type="button" id="add-button">Add a new feed</button>
-                <form class="add-form-hidden">
+                <form>
                     <p>URL <input url="url" type="text" id="feed-url"></p>
                     <p>Name <input name="name" type="text" id="feed-name"></p>
                     <button type="button" id="cancel">Cancel</button> <button type="button" id="add">Add</button>
@@ -52,7 +52,7 @@
         <script class="tpl-feed-list-item" type="text/x-handlebars-template">
             <li>
                 <a href="#" data-id="{{id}}">{{name}}</a>
-                <button class="destroy"></button>
+                <button class="destroy" data-id="{{id}}"></button>
             </li>
         </script>
 
