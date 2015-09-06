@@ -58,8 +58,13 @@ feeds.allFeeds = allFeeds;
  * function when the API is loaded.
  */
 function init() {
-    // Load the first feed we've defined (index of 0).
-    loadFeed(0);
+    // If the feed is not empty, Load the first feed we've defined
+    if (feeds.allFeeds.length>0) {
+        loadFeed(0);
+    } else {
+        $('.header-title').html('No Feed');
+        $('.feed a').remove();
+    }
 }
 
 /* This function performs everything necessary to load a
@@ -125,10 +130,9 @@ $(function() {
         feedList = $('.feed-list'),
         feedItemTemplate = Handlebars.compile($('.tpl-feed-list-item').html()),
         feedId = 0,
-        menuIcon = $('.menu-icon-link');
-
-        addButton = $('#add-button');
-        cancel = $('#cancel');
+        menuIcon = $('.menu-icon-link'),
+        addButton = $('#add-button'),
+        cancel = $('#cancel'),
         add = $('#add');
 
 
@@ -138,13 +142,15 @@ $(function() {
      * above using Handlebars) and append it to the list of all
      * available feeds within the menu.
      */
-    feeds.allFeeds.forEach(function(feed) {
-        feed.id = feedId;
-        feedList.append(feedItemTemplate(feed));
+    function showFeeds() { 
+        feeds.allFeeds.forEach(function(feed) {
+            feed.id = feedId;
+            feedList.append(feedItemTemplate(feed));
+            feedId++;
+        });
+    };
 
-        feedId++;
-    });
-
+    showFeeds();
     /* When a link in our feedList is clicked on, we want to hide
      * the menu, load the feed, and prevent the default action
      * (following the link) from occuring.
@@ -162,18 +168,25 @@ $(function() {
      */
     menuIcon.on('click', function() {
         $('body').toggleClass('menu-hidden');
+        $('form').css("display","none");
     });
 
+    /* When the "Add a new feed" botton is clicked on, we need to 
+     * toggle a class on the form */
     addButton.on('click',function() {
-        $('form').toggleClass('add-form-hidden');
+        $('form').css('display','block');
     });
 
+    /* When the "cancel" button is clicked on, we need to toggle 
+     * a class on the form
+     */
     cancel.on('click',function() {
-        $('form').toggleClass('add-form-hidden');
+        $('form').css("display","none");
     });
+
 
     add.on('click', function() {
-        $('form').toggleClass('add-form-hidden');
+        $('form').css("display","none");
         var name = $('#feed-name').val();
         var url = $('#feed-url').val();
         var addfeed = new aFeed(name,url);
@@ -181,6 +194,17 @@ $(function() {
         feedId++;
         feeds.addFeeds(addfeed);
         feedList.append(feedItemTemplate(addfeed));
+        init();
+    });
+
+    feedList.on('click', 'button', function() {
+        var item = $(this);
+        feeds.deleteFeeds(item.data('id'));
+        console.log('current feed'+feeds.allFeeds.length);
+        $('.feed-list li').remove();
+        feedId=0;
+        showFeeds();
+        init();
     });
 
 }());
