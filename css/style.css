@@ -68,11 +68,11 @@ h2 {
 
 .menu li {
     padding: 0;
+    margin-bottom: 10px;
 }
 
 .menu li a {
     color: #fff;
-    display: block;
     padding: 0.5em 0;
 }
 
@@ -93,4 +93,22 @@ h2 {
     border-bottom: 1px solid #ddd;
     padding: 1em;
     margin: 0.5em 0;
+}
+
+.add {
+    position: relative;
+    top: 40%;
+}
+
+.destroy {
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    background: transparent;
+    border: none !important;
+}
+
+.feed-list li .destroy:after {
+    content: '✖';
+    color: #fff;
 }
