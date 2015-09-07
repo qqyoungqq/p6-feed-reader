@@ -12,11 +12,10 @@ $(function() {
     /* A test suite named "RSS Feeds".
      * This suite is all about the RSS feeds definitions, 
      * the allFeeds variable in our application.
-    */
+     */
     describe('RSS Feeds', function() {
-        /* A test to make sure that the
-         * allFeeds variable has been defined and that it is not
-         * empty. 
+        /* A test to make sure that the allFeeds variable has 
+         * been defined and that it is not empty. 
          */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
@@ -24,10 +23,10 @@ $(function() {
         });
 
         /**
-          * @desc test if each feed has URL/name defined and they are not empty
-          * @param int $category - property of allFeeds (0/other = URL/name)
-          * @return bool - success or failure 
-        */
+         * @desc test if each feed has URL/name defined and they are not empty
+         * @param int $category - property of allFeeds (0/other = URL/name)
+         * @return bool - success or failure 
+         */
          function testAllFeeds(category) {
             var len=allFeeds.length;
             if (category === 0) {
@@ -68,7 +67,7 @@ $(function() {
         /* A test that ensures the menu changes visibility when the menu 
          * icon is clicked. This test has two expectations: does the
          * menu display when clicked and does it hide when clicked again
-        */
+         */
         it('changes visibility when the menu icon is clicked',function() {
             var menu_btn = $('.menu-icon-link');
             menu_btn.click();

@@ -12,6 +12,8 @@
  * @param string $url
  * @return bool - success or failure
  */
+
+"use strict";
 function aFeed(name,url) {
     this.name = name;
     this.url = url;
@@ -163,7 +165,7 @@ $(function() {
             feedList.append(feedItemTemplate(feed));
             feedId++;
         });
-    };
+    }
 
     showFeeds();
 
@@ -227,11 +229,14 @@ $(function() {
      */
     feedList.on('click', 'button', function() {
         var item = $(this);
+        var oldId = item.data('id');
         feeds.deleteFeeds(item.data('id'));
         $('.feed-list li').remove();
         feedId=0;
         showFeeds();
-        init();
+        if (oldId === 0) {
+            init();
+        }
     });
 
 }());
@@ -242,7 +247,7 @@ $(function() {
  * @return bool - success or failure
  */
 function validateInput(inp) {
-    if (inp == '') {
+    if (inp === '') {
         alert('Entry is empty');
         return false;
     } else {
