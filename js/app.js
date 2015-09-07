@@ -198,16 +198,19 @@ $(function() {
     });
 
     /* When the "cancel" button is clicked on, we need to change the
-     * css property of form to hide the form
+     * css property of form to hide the form, and to clear the input
      */
     cancel.on('click',function() {
         $('form').css("display","none");
+        $('#feed-name').val('');
+        $('#feed-url').val('');
     });
 
     /* When the "add" button is clicked on, we need to check whether 
      * the input (name, url) is valid. If so, then change the css 
      * property of form to hide the form. And add the new feed to 
-     * feeds by calling feeds.addFeeds and append it to feedList
+     * feeds by calling feeds.addFeeds and append it to feedList. 
+     * Finally, clear the input text.
      */
     add.on('click', function() {
         var name = $('#feed-name').val();
@@ -220,6 +223,8 @@ $(function() {
             feeds.addFeeds(addfeed);
             feedList.append(feedItemTemplate(addfeed));           
         }
+        $('#feed-name').val('');
+        $('#feed-url').val('');
     });
 
     /* When the delete icon (cross) in feedList is clicked on, we need to
