@@ -11,15 +11,16 @@
  * @param string $name
  * @param string $url
  * @return bool - success or failure
-*/
-function aFeed(name,url,id) {
+ */
+function aFeed(name,url) {
     this.name = name;
     this.url = url;
 }
 
 /**
  * @desc creat an object containing allFeeds and other methods 
-*/
+ * @return bool - success or failure
+ */
 function Feeds() {
     this.allFeeds = [];
     this.addFeeds = function(afeed) {
@@ -50,15 +51,23 @@ var allFeeds = [
     }
 ];
 
+// Create a new Feeds object named feeds
 var feeds = new Feeds();
+
+// Assign the "allFeeds" property of feeds to be allFeeds defined above
 feeds.allFeeds = allFeeds;
 
 /* This function starts up our application. The Google Feed
  * Reader API is loaded asynchonously and will then call this
  * function when the API is loaded.
  */
+
+/**
+ * @desc load the first feed as long as allFeeds in feeds is not empty 
+ * @return bool - success or failure
+ */ 
 function init() {
-    // If the feed is not empty, Load the first feed we've defined
+    // If the feeds.allFeeds is not empty, Load the first feed 
     if (feeds.allFeeds.length>0) {
         loadFeed(0);
     } else {
@@ -67,14 +76,16 @@ function init() {
     }
 }
 
-/* This function performs everything necessary to load a
- * feed using the Google Feed Reader API. It will then
- * perform all of the DOM operations required to display
- * feed entries on the page. Feeds are referenced by their
- * index position within the allFeeds array.
- * This function all supports a callback as the second parameter
- * which will be called after everything has run successfully.
- */
+/**
+ * @desc performs everything necessary to load a feed using the Google 
+ * Feed Reader API. It will then perform all of the DOM operations 
+ * required to display feed entries on the page. Feeds are referenced
+ * by their index position within the allFeeds array. 
+ * @param int $id - index position within the feeds.allFeeds array
+ * @param bool $cb - callback which will be called everything has run
+ * successfully.
+ * @return bool - success or failure
+ */ 
 function loadFeed(id, cb) {
     var feedUrl = feeds.allFeeds[id].url,
         feedName = feeds.allFeeds[id].name,
@@ -107,11 +118,14 @@ function loadFeed(id, cb) {
             entries.forEach(function(entry) {
                 container.append(entryTemplate(entry));
             });
+        } else {
+            /* display error message when loading the feed fails. */
+            alert(result.error.message);
         }
 
         if (cb) {
             cb();
-        }
+        } 
     });
 }
 
@@ -135,12 +149,13 @@ $(function() {
         cancel = $('#cancel'),
         add = $('#add');
 
-
-    /* Loop through all of our feeds, assigning an id property to
+    /**
+     * @desc Loop through all of feeds, assigning an id property to 
      * each of the feeds based upon its index within the array.
-     * Then parse that feed against the feedItemTemplate (created
+     * The parse that feed against the feedItemTemplate and (created
      * above using Handlebars) and append it to the list of all
-     * available feeds within the menu.
+     * available feeds within the menu  
+     * @return bool - success or failure
      */
     function showFeeds() { 
         feeds.allFeeds.forEach(function(feed) {
@@ -151,6 +166,7 @@ $(function() {
     };
 
     showFeeds();
+
     /* When a link in our feedList is clicked on, we want to hide
      * the menu, load the feed, and prevent the default action
      * (following the link) from occuring.
@@ -164,7 +180,8 @@ $(function() {
     });
 
     /* When the menu icon is clicked on, we need to toggle a class
-     * on the body to perform the hiding/showing of our menu.
+     * on the body to perform the hiding/showing of our menu, 
+     * and to change the css property of form to hide the form
      */
     menuIcon.on('click', function() {
         $('body').toggleClass('menu-hidden');
@@ -172,35 +189,45 @@ $(function() {
     });
 
     /* When the "Add a new feed" botton is clicked on, we need to 
-     * toggle a class on the form */
+     * change the css property of form to show the form
+     */
     addButton.on('click',function() {
         $('form').css('display','block');
     });
 
-    /* When the "cancel" button is clicked on, we need to toggle 
-     * a class on the form
+    /* When the "cancel" button is clicked on, we need to change the
+     * css property of form to hide the form
      */
     cancel.on('click',function() {
         $('form').css("display","none");
     });
 
-
+    /* When the "add" button is clicked on, we need to check whether 
+     * the input (name, url) is valid. If so, then change the css 
+     * property of form to hide the form. And add the new feed to 
+     * feeds by calling feeds.addFeeds and append it to feedList
+     */
     add.on('click', function() {
-        $('form').css("display","none");
         var name = $('#feed-name').val();
         var url = $('#feed-url').val();
-        var addfeed = new aFeed(name,url);
-        addfeed.id=feedId;
-        feedId++;
-        feeds.addFeeds(addfeed);
-        feedList.append(feedItemTemplate(addfeed));
-        init();
+        if ( validateInput(name) && validateInput(url) ) {
+            $('form').css("display","none");
+            var addfeed = new aFeed(name,url);
+            addfeed.id=feedId;
+            feedId++;
+            feeds.addFeeds(addfeed);
+            feedList.append(feedItemTemplate(addfeed));           
+        }
     });
 
+    /* When the delete icon (cross) in feedList is clicked on, we need to
+     * delete the feed from feeds by calling feeds.deleteFeeds and relist 
+     * the new feeds in the menu by calling showFeeds, and to load the 
+     * first feed by calling init().  
+     */
     feedList.on('click', 'button', function() {
         var item = $(this);
         feeds.deleteFeeds(item.data('id'));
-        console.log('current feed'+feeds.allFeeds.length);
         $('.feed-list li').remove();
         feedId=0;
         showFeeds();
@@ -208,3 +235,17 @@ $(function() {
     });
 
 }());
+
+/**
+ * @desc to validate if input is empty string  
+ * @param string $inp
+ * @return bool - success or failure
+ */
+function validateInput(inp) {
+    if (inp == '') {
+        alert('Entry is empty');
+        return false;
+    } else {
+        return true;
+    }
+}
