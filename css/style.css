@@ -92,8 +92,8 @@ h2 {
 }
 
 .add {
-    position: relative;
-    top: 40%;
+    position: absolute;
+    top: 400px;
 }
 
 .destroy {
