@@ -7,7 +7,7 @@
  */
 
 /**
- * @desc creat a new feed object 
+ * @desc creat a new feed object
  * @param string $name
  * @param string $url
  * @return bool - success or failure
@@ -20,7 +20,7 @@ function aFeed(name,url) {
 }
 
 /**
- * @desc creat an object containing allFeeds and other methods 
+ * @desc creat an object containing allFeeds and other methods
  * @return bool - success or failure
  */
 function Feeds() {
@@ -65,11 +65,11 @@ feeds.allFeeds = allFeeds;
  */
 
 /**
- * @desc load the first feed as long as allFeeds in feeds is not empty 
+ * @desc load the first feed as long as allFeeds in feeds is not empty
  * @return bool - success or failure
- */ 
+ */
 function init() {
-    // If the feeds.allFeeds is not empty, Load the first feed 
+    // If the feeds.allFeeds is not empty, Load the first feed
     if (feeds.allFeeds.length>0) {
         loadFeed(0);
     } else {
@@ -79,15 +79,15 @@ function init() {
 }
 
 /**
- * @desc performs everything necessary to load a feed using the Google 
- * Feed Reader API. It will then perform all of the DOM operations 
+ * @desc performs everything necessary to load a feed using the Google
+ * Feed Reader API. It will then perform all of the DOM operations
  * required to display feed entries on the page. Feeds are referenced
- * by their index position within the allFeeds array. 
+ * by their index position within the allFeeds array.
  * @param int $id - index position within the feeds.allFeeds array
  * @param bool $cb - callback which will be called everything has run
  * successfully.
  * @return bool - success or failure
- */ 
+ */
 function loadFeed(id, cb) {
     var feedUrl = feeds.allFeeds[id].url,
         feedName = feeds.allFeeds[id].name,
@@ -127,7 +127,7 @@ function loadFeed(id, cb) {
 
         if (cb) {
             cb();
-        } 
+        }
     });
 }
 
@@ -152,14 +152,14 @@ $(function() {
         add = $('#add');
 
     /**
-     * @desc Loop through all of feeds, assigning an id property to 
+     * @desc Loop through all of feeds, assigning an id property to
      * each of the feeds based upon its index within the array.
      * The parse that feed against the feedItemTemplate and (created
      * above using Handlebars) and append it to the list of all
-     * available feeds within the menu  
+     * available feeds within the menu
      * @return bool - success or failure
      */
-    function showFeeds() { 
+    function showFeeds() {
         feeds.allFeeds.forEach(function(feed) {
             feed.id = feedId;
             feedList.append(feedItemTemplate(feed));
@@ -182,7 +182,7 @@ $(function() {
     });
 
     /* When the menu icon is clicked on, we need to toggle a class
-     * on the body to perform the hiding/showing of our menu, 
+     * on the body to perform the hiding/showing of our menu,
      * and to change the css property of form to hide the form
      */
     menuIcon.on('click', function() {
@@ -190,7 +190,7 @@ $(function() {
         $('form').css("display","none");
     });
 
-    /* When the "Add a new feed" botton is clicked on, we need to 
+    /* When the "Add a new feed" botton is clicked on, we need to
      * change the css property of form to show the form
      */
     addButton.on('click',function() {
@@ -206,10 +206,10 @@ $(function() {
         $('#feed-url').val('');
     });
 
-    /* When the "add" button is clicked on, we need to check whether 
-     * the input (name, url) is valid. If so, then change the css 
-     * property of form to hide the form. And add the new feed to 
-     * feeds by calling feeds.addFeeds and append it to feedList. 
+    /* When the "add" button is clicked on, we need to check whether
+     * the input (name, url) is valid. If so, then change the css
+     * property of form to hide the form. And add the new feed to
+     * feeds by calling feeds.addFeeds and append it to feedList.
      * Finally, clear the input text.
      */
     add.on('click', function() {
@@ -221,16 +221,16 @@ $(function() {
             addfeed.id=feedId;
             feedId++;
             feeds.addFeeds(addfeed);
-            feedList.append(feedItemTemplate(addfeed));           
+            feedList.append(feedItemTemplate(addfeed));
         }
         $('#feed-name').val('');
         $('#feed-url').val('');
     });
 
     /* When the delete icon (cross) in feedList is clicked on, we need to
-     * delete the feed from feeds by calling feeds.deleteFeeds and relist 
-     * the new feeds in the menu by calling showFeeds, and to load the 
-     * first feed by calling init().  
+     * delete the feed from feeds by calling feeds.deleteFeeds and relist
+     * the new feeds in the menu by calling showFeeds, and to load the
+     * first feed by calling init().
      */
     feedList.on('click', 'button', function() {
         var item = $(this);
@@ -247,7 +247,7 @@ $(function() {
 }());
 
 /**
- * @desc to validate if input is empty string  
+ * @desc to validate if input is empty string
  * @param string $inp
  * @return bool - success or failure
  */

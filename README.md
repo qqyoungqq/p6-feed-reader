@@ -13,7 +13,9 @@ This project is about "test-driven development": write tests first before starti
 6. Click the "Add" button to add the new feed as well as hide the form.
 7. Click the "Cancel" button to cancle the operation as well as to hide the form.
 8. Click the "cross" icon next to each feed to delete the feed.
-9. Jasmine tests and results are shown at the bottom of the page.
+
+### Instructions on how to run the tests 
+Simply open the given URL (or index.html). Jasmine tests and results are shown at the bottom of the page.
 
 ### List of tests  
 1. a test that loops through each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty.
