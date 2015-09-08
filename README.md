@@ -4,7 +4,7 @@ Front-End Web Developer Nanodegree Project 6
 ### Project Overview  
 This project is about "test-driven development": write tests first before starting developing the application. A web-based application that reads RSS feeds is given. In order to test the underlying business logic of the application as well as the event handling and DOM manipulation, [Jasmine] (http://jasmine.github.io/) was used to write a number of tests againest the pre-exisiting application.  
 
-### Intructions on how to run the application
+### Instructions on how to run the application
 1. Visit my [Github page] (http://qqyoungqq.github.io/p6-feed-reader/).
 2. Click the link of article to read the arcticle opened in a new window. 
 3. Click the menu icon to see the avaliable feeds. 
